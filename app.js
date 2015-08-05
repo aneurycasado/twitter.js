@@ -27,5 +27,5 @@ app.get("/", function(request,response, next){
 });
 
 app.use("/news", function(request,response){
-  response.send(tweetBank.list());
+  response.send(tweetBank.add());
 });
