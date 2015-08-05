@@ -13,20 +13,7 @@ app.listen(port,function(){
   console.log("Im on bro");
 });
 
-app.use(function(request,response,next){
-  console.log(request.method + " " + request.url + " " + response.statusCode);
-  next();
-});
 
 var people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
 
 app.engine('html', swig.renderFile);
-
-app.get("/", function(request,response, next){
-  response.render( 'index', {title: 'Hall of Fame', people: people} );
-
-});
-
-app.use("/news", function(request,response){
-  response.send(tweetBank.add());
-});
