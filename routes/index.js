@@ -11,16 +11,13 @@ router.use('/public', function(req,res){
 
 router.get('/', function (req,res,next) {
   var tweets = tweetBank.list();
-  res.render( 'index', { title: 'Twitter.js', tweets: tweets } );
+  res.render( 'index', { title: 'Twitter.js', tweets: tweets, showForm: true } );
 });
 
 router.get('/users/:name/tweets/:id', function(req, res){
   var name = req.params.name;
   var id = parseInt(req.params.id);
-  console.log(id);
   var tweet = tweetBank.find({id:id});
-  console.log(tweet);
-  console.log("Tweet get");
   res.render( 'index', {
     title: 'Twitter.js - Posts by '+name,
     tweets: tweet
@@ -30,16 +27,23 @@ router.get('/users/:name/tweets/:id', function(req, res){
 router.get('/users/:name', function(req, res) {
   var name = req.params.name;
   var tweets = tweetBank.find({name: name});
-  console.log("Name get");
+  // console.log(res.body);
+  // res.body.name = name;
   res.render( 'index', {
     title: 'Twitter.js - Posts by '+name,
-    tweets: tweets
+    tweets: tweets,
+    showForm: true,
+    name: name
   });
 });
 
-
-
-
+router.post('/submit', function(req, res) {
+  console.log(req);
+  var name = req.body.name;
+  var text = req.body.text;
+  tweetBank.add(name, text);
+  res.redirect('/');
+});
 
 
 
