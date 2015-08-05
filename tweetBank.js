@@ -1,7 +1,9 @@
 var _ = require("underscore");
 var data = [];
+var count = 0;
 var add = function (name, text) {
-  data.push({ name: name, text: text });
+  data.push({id: count, name: name, text: text});
+  count++;
 };
 
 var list = function () {
@@ -9,6 +11,9 @@ var list = function () {
 };
 
 var find = function (properties) {
+  console.log('hello')
+  console.log(properties);
+  console.log(data);
   return _.where(data, properties);
 };
 
