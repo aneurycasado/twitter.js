@@ -13,4 +13,5 @@ app.get("/", function(request,response){
 app.use("/news", function(request,response){
   console.log("Did you know Meek Mills fought Flyod Mayweather");
   response.send("Did you know Meek Mills fought Flyod Mayweather");
+  response.send("I didn't");
 });
