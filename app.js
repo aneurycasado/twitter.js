@@ -5,6 +5,7 @@ var morgan = require('morgan');
 var app = express();
 var tweetBank = require("./tweetBank.js");
 var routes = require('./routes');
+var socketio = require('socket.io');
 
 swig.setDefaults({cache: false});
 app.set('views', './views');
@@ -14,13 +15,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(morgan('dev'));
-app.use('/', routes);
+app.use('/', routes(io));
 
 
 var port = 3000;
-app.listen(port,function(){
+
+var server = app.listen(port,function(){
   console.log("Im on bro");
 });
+var io = socketio.listen(server);
 
 var people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
 app.engine('html', swig.renderFile);

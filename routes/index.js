@@ -38,15 +38,15 @@ router.get('/users/:name', function(req, res) {
 });
 
 router.post('/submit', function(req, res) {
-  console.log(req);
   var name = req.body.name;
   var text = req.body.text;
   tweetBank.add(name, text);
+  io.sockets.emit('new_tweet', {name: name, text: text});
   res.redirect('/');
 });
 
 
+module.exports = function(io) {
 
-
-
-module.exports = router;
+  return router;
+};
