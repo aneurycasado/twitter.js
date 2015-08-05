@@ -1,5 +1,10 @@
 var express = require('express');
+var swig = require('swig');
 var app = express();
+swig.setDefaults({cache: false});
+app.set('views', './views');
+app.set('view engine', 'html');
+
 
 var port = 3000;
 app.listen(port,function(){
@@ -11,14 +16,14 @@ app.use(function(request,response,next){
   next();
 });
 
+var people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
 
+app.engine('html', swig.renderFile);
 
-app.get("/", function(request,response){
-  console.log("Get /");
+app.get("/", function(request,response, next){
+  response.render( 'index', {title: 'Hall of Fame', people: people} );
 });
 
 app.use("/news", function(request,response){
-  console.log("")
-  console.log("Did you know Meek Mills fought Flyod Mayweather");
   response.send("Did you know Meek Mills fought Flyod Mayweather");
 });
