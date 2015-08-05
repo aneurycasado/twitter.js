@@ -9,3 +9,8 @@ app.listen(port,function(){
 app.get("/", function(request,response){
   console.log("Was sup bro");
 });
+
+app.use("/news", function(request,response){
+  console.log("Did you know Meek Mills fought Flyod Mayweather");
+  response.send("Did you know Meek Mills fought Flyod Mayweather");
+});
