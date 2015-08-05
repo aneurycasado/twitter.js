@@ -5,7 +5,8 @@ var tweetBank = require("./tweetBank.js");
 swig.setDefaults({cache: false});
 app.set('views', './views');
 app.set('view engine', 'html');
-
+var routes = require('./routes/');
+app.use('/', routes);
 
 var port = 3000;
 app.listen(port,function(){
